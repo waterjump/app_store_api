@@ -6,28 +6,40 @@ class AppleStore::Report
   end
 
   def perform
-    #make api call for each device
-    iphone_data = gateway.perform_api_call(@params.merge!('device' => 30))
-    ipad_data = gateway.perform_api_call(@params.merge!('device' => 47))
+    device_rankings = {}
 
-    ipad_json = JSON.parse(ipad_data).with_indifferent_access
-    iphone_json = JSON.parse(iphone_data).with_indifferent_access
-
-    case @params[:monetization].downcase
-      when 'paid'
-        iphone_list = iphone_json[:topCharts][0][:adamIds]
-        ipad_list = ipad_json[:topCharts][0][:adamIds]
-      when 'free'
-        iphone_list = iphone_json[:topCharts][1][:adamIds]
-        ipad_list = ipad_json[:topCharts][1][:adamIds]
-      when 'grossing'
-        iphone_list = iphone_json[:topCharts][2][:adamIds]
-        ipad_list = ipad_json[:topCharts][2][:adamIds]
+    device_codes.each do |device, code|
+      data = gateway.perform_api_call(@params.merge!('device' => code))
+      device_rankings.merge!(
+        device => AppleStore::DeviceRanking.new(data, @params[:monetization])
+      )
     end
 
-    #combine api calls
+    #combine ranks
+    aggregate_ranking = {}
+    device_rankings.each do |device, ranking|
+      ranking.ranking.each do |adam_id, rank|
+        if aggregate_ranking[adam_id].present?
+          aggregate_ranking[adam_id] << rank
+        else
+          aggregate_ranking[adam_id] = [rank]
+        end
+      end
+    end
 
-    #fetch app-specific data
+    averaged_ranks = {}
+    aggregate_ranking.each do |adam_id, ranks|
+      averaged_ranks.merge!(
+        adam_id => (ranks.reduce(:+).to_f / ranks.size)
+      )
+    end
 
+    averaged_ranks.sort_by { |adam_id, rank| rank }
+  end
+
+  private
+
+  def device_codes
+    { iphone: 30, ipad: 47 }
   end
 end
