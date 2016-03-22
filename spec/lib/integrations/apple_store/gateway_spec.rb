@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AppleStore::Gateway do
   let(:params) do
-    { 'category_id' => 6001, 'device' => 30 }
+    { :category_id => 6001, :device => 30 }
   end
   describe '#perform_api_call' do
     it 'returns a string' do

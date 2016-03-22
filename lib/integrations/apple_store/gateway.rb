@@ -20,8 +20,8 @@ class AppleStore::Gateway
   private
 
   def top_apps_endpoint(params)
-    category = "genreId=#{params['category_id']}"
-    device = "popId=#{params['device']}"
+    category = "genreId=#{params[:category_id]}"
+    device = "popId=#{params[:device]}"
 
     [top_apps_url, category, device].join('&')
   end
