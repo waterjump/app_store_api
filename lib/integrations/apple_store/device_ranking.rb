@@ -1,17 +1,12 @@
 class AppleStore::DeviceRanking
 
-  attr_reader :ranking
-
-  def initialize(hash, monetization)
+  def initialize(data, monetization)
+    @data = data
     @monetization = monetization
-
-    process(hash)
   end
 
-  private
-
-  def process(data)
-    json = JSON.parse(data).with_indifferent_access
+  def ranking
+    json = JSON.parse(@data).with_indifferent_access
     list = case @monetization.downcase
       when 'paid'
         json[:topCharts][0][:adamIds]
