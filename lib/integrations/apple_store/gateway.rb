@@ -1,6 +1,6 @@
 class AppleStore::Gateway
 
-  def perform_api_call(endpoint, headers, options = {})
+  def perform_api_call(endpoint, headers = nil, options = {})
     uri = URI.parse(endpoint)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
