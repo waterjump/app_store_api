@@ -32,7 +32,14 @@ RSpec.describe Api::ReportsController, type: :controller do
     it 'returns json' do
       get :show, good_params
       parsed_body = JSON.parse(response.body)
+      expect(parsed_body.first['id'].present?).to be true
       expect(parsed_body.first['name'].present?).to be true
+      expect(parsed_body.first['description'].present?).to be true
+      expect(parsed_body.first['small_icon_url'].present?).to be true
+      expect(parsed_body.first['publisher_name'].present?).to be true
+      expect(parsed_body.first['price'].present?).to be true
+      expect(parsed_body.first['version'].present?).to be true
+      expect(parsed_body.first['average_user_rating'].present?).to be true
     end
   end
 end

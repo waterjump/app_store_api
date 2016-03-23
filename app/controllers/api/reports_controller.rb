@@ -4,10 +4,14 @@ module Api
 
     def show
       if validate_params
-        @results = AppleStore::Report.new(params).perform
-        render json: @results
+        @apps = AppleStore::Report.new(params).perform
+        respond_to do |format|
+          format.json { render json: @apps }
+        end
       else
-        render :json => {:error => 'Bad Request'}.to_json, :status => 400
+        respond_to do |format|
+          format.json { render json: {error: 'Bad Request'}.to_json, status: 400 }
+        end
       end
     end
 
