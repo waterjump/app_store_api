@@ -6,7 +6,7 @@ RSpec.describe Api::ReportsController, type: :controller do
       {
         id: '',
         format: :json,
-        category_id: 1025,
+        category_id: 6001,
         monetization: 'paid'
       }
     end
@@ -24,15 +24,15 @@ RSpec.describe Api::ReportsController, type: :controller do
       expect(response).to have_http_status(200)
     end
 
-    it 'returns a simple response' do
-      get :show, good_params
-      results = JSON.parse(response.body)
-      expect(results['hello']).to eq 'world'
-    end
-
     it 'requires certain parameters' do
       get :show, bad_params
       expect(response).to have_http_status(400)
+    end
+
+    it 'returns json' do
+      get :show, good_params
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body.first['name'].present?).to be true
     end
   end
 end

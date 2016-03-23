@@ -11,15 +11,26 @@ class AppleStore::RankedApp
   def metadata
     @metadata ||=
       Rails.cache.fetch("ranked_app-adam_id_#{@adam_id}", expires_in: 30.days) do
-        data = gateway.perform_api_call(@endpoint)
+        data = gateway.perform_api_call(api_call_params)
         metadata_hash(data)
       end
   end
 
   private
 
+  def api_call_params
+    {
+      endpoint: @endpoint,
+      headers: {},
+      options: {}
+    }
+  end
+
   def metadata_hash(data)
     json = JSON.parse(data).with_indifferent_access
+    if json[:errorMessage].present?
+      return {}
+    end
     return {} unless json[:resultCount] > 0
     app = json[:results].first
 

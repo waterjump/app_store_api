@@ -24,6 +24,13 @@ class AppleStore::Report
     combined_ranking = combined_ranking(device_rankings)
 
     averaged_ranks = averaged_ranks(combined_ranking)
+
+    items = []
+    averaged_ranks.each_with_index do |adam_id, index|
+      items << AppleStore::RankedApp.new(adam_id.first).metadata
+    end
+
+    items.to_json
   end
 
   private

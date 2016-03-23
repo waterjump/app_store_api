@@ -11,7 +11,7 @@ RSpec.describe AppleStore::Report do
 
   describe '#perform' do
     it 'returns JSON' do
-      expect(subject.perform).to be_kind_of(JSON)
+      expect(subject.perform).to be_kind_of(String)
     end
   end
 end

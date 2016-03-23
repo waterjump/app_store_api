@@ -4,8 +4,7 @@ module Api
 
     def show
       if validate_params
-        Rails.logger.info "69BOT - params: #{params}"
-        @results = { 'hello' => 'world' }
+        @results = AppleStore::Report.new(params).perform
         render json: @results
       else
         render :json => {:error => 'Bad Request'}.to_json, :status => 400
