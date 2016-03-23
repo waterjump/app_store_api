@@ -27,7 +27,9 @@ class AppleStore::Report
 
     items = []
     averaged_ranks.each_with_index do |adam_id, index|
-      items << AppleStore::RankedApp.new(adam_id.first).metadata
+      data = AppleStore::RankedApp.new(adam_id.first).metadata
+      items << data if data.present?
+      break if items.count == 200
     end
 
     items.to_json
@@ -96,7 +98,6 @@ class AppleStore::Report
     end
 
     averaged_ranks.sort_by { |adam_id, rank| rank }
-      .first(200)
       .to_h
   end
 end
