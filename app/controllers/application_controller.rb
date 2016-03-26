@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def validate_params
     activity = Validate::Base.new(params)
     if !activity.valid?
-      render json: { error: activity.errors }
+      render json: { error: activity.errors }, status: 400
     end
   end
 

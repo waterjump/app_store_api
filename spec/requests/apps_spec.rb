@@ -1,10 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Api::ReportsController, type: :controller do
-  describe 'GET #show' do
+RSpec.describe Api::AppsController, type: :controller do
+  describe 'GET #index' do
     let!(:good_params) do
       {
-        id: '',
         format: :json,
         category_id: 6001,
         monetization: 'paid'
@@ -13,24 +12,36 @@ RSpec.describe Api::ReportsController, type: :controller do
 
     let!(:bad_params) do
       {
-        id: '',
         format: :json
       }
     end
 
+    let!(:invalid_cat_params) do
+      {
+        format: :json,
+        category_id: 'QQQ',
+        monetization: 'paid'
+      }
+    end
+
     it 'responds successfully with an HTTP 200 status code' do
-      get :show, good_params
+      get :index, good_params
       expect(response).to be_success
       expect(response).to have_http_status(200)
     end
 
-    it 'requires certain parameters' do
-      get :show, bad_params
+    it 'requires category_id and monetization parameters' do
+      get :index, bad_params
+      expect(response).to have_http_status(400)
+    end
+
+    it 'requires a numberic category_id' do
+      get :index, invalid_cat_params
       expect(response).to have_http_status(400)
     end
 
     it 'returns json' do
-      get :show, good_params
+      get :index, good_params
       parsed_body = JSON.parse(response.body)
       expect(parsed_body.first['id'].present?).to be true
       expect(parsed_body.first['name'].present?).to be true
