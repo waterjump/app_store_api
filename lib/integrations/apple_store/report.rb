@@ -32,7 +32,11 @@ class AppleStore::Report
       break if items.count == 200
     end
 
-    items.to_json
+    if @params[:rank].present?
+      items[@params[:rank].to_i - 1].to_json
+    else
+      items.to_json
+    end
   end
 
   private
