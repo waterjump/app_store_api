@@ -33,15 +33,15 @@ RSpec.describe Api::AppsController, type: :controller do
         get :index, good_params.merge!(rank: 69)
       end
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body).to be_kind_of(Hash)
-      expect(parsed_body['id'].present?).to be true
-      expect(parsed_body['name'].present?).to be true
-      expect(parsed_body['description'].present?).to be true
-      expect(parsed_body['small_icon_url'].present?).to be true
-      expect(parsed_body['publisher_name'].present?).to be true
-      expect(parsed_body['price'].present?).to be true
-      expect(parsed_body['version'].present?).to be true
-      expect(parsed_body['average_user_rating'].present?).to be true
+      expect(parsed_body).to be_kind_of(Array)
+      expect(parsed_body.first['id'].present?).to be true
+      expect(parsed_body.first['name'].present?).to be true
+      expect(parsed_body.first['description'].present?).to be true
+      expect(parsed_body.first['small_icon_url'].present?).to be true
+      expect(parsed_body.first['publisher_name'].present?).to be true
+      expect(parsed_body.first['price'].present?).to be true
+      expect(parsed_body.first['version'].present?).to be true
+      expect(parsed_body.first['average_user_rating'].present?).to be true
     end
   end
 end

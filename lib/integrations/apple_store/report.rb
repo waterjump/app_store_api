@@ -17,7 +17,6 @@ class AppleStore::Report
     combined_ranking = combine_ranking
     averaged_rankings = averaged_rankings(combined_ranking)
     build_results(averaged_rankings)
-    format_results
   end
 
   private
@@ -96,9 +95,13 @@ class AppleStore::Report
       )
     end
 
-    averaged_rankings
-      .sort_by { |adam_id, rank| rank }
-      .to_h
+    averaged_rankings = averaged_rankings.sort_by { |adam_id, rank| rank }
+
+    if @params[:rank].present?
+      averaged_rankings = [ averaged_rankings[(@params[:rank].to_i - 1)] ]
+    end
+
+    averaged_rankings.to_h
   end
 
   def build_results(averaged_rankings)
@@ -107,13 +110,7 @@ class AppleStore::Report
       @results << data if data.present?
       break if @results.count == @max_length
     end
-  end
 
-  def format_results
-    if @params[:rank].present?
-      @results[@params[:rank].to_i - 1].to_json
-    else
-      @results.to_json
-    end
+    @results.to_json
   end
 end
