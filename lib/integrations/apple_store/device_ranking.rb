@@ -21,6 +21,8 @@ class AppleStore::DeviceRanking
       []
     end
 
+    return {} unless list.present?
+
     @ranking = {}
     list.each_with_index do |adam_id, index|
       @ranking.merge!( adam_id => (index + 1) )
