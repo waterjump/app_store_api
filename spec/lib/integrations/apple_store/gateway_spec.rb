@@ -27,12 +27,16 @@ RSpec.describe AppleStore::Gateway do
 
   describe '#perform_api_call' do
     it 'returns a string' do
-      response = subject.perform_api_call(params)
+      response = VCR.use_cassette('apps') do
+        subject.perform_api_call(params)
+      end
       expect(response).to be_kind_of(String)
     end
 
     it 'returns content from apple store service' do
-      response = subject.perform_api_call(params)
+      response = VCR.use_cassette('apps') do
+        subject.perform_api_call(params)
+      end
       expect(response).to match(/adamIds/)
     end
   end

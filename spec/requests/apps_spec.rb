@@ -6,13 +6,15 @@ RSpec.describe Api::AppsController, type: :controller do
     let!(:good_params) do
       {
         format: :json,
-        category_id: 6001,
-        monetization: 'paid'
+        category_id: 36,
+        monetization: 'free'
       }
     end
 
     it 'returns a list of top apps' do
-      get :index, good_params
+      VCR.use_cassette('apps') do
+        get :index, good_params
+      end
       parsed_body = JSON.parse(response.body)
       expect(parsed_body).to be_kind_of(Array)
       expect(parsed_body.count).to eq(200)
@@ -27,7 +29,9 @@ RSpec.describe Api::AppsController, type: :controller do
     end
 
     it 'returns a single app by rank' do
-      get :index, good_params.merge!(rank: 69)
+      VCR.use_cassette('apps') do
+        get :index, good_params.merge!(rank: 69)
+      end
       parsed_body = JSON.parse(response.body)
       expect(parsed_body).to be_kind_of(Hash)
       expect(parsed_body['id'].present?).to be true

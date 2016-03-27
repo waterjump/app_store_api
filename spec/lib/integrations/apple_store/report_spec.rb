@@ -11,7 +11,9 @@ RSpec.describe AppleStore::Report do
 
   describe '#perform' do
     it 'returns JSON' do
-      expect(subject.perform).to be_kind_of(String)
+      VCR.use_cassette('apps') do
+        expect(subject.perform).to be_kind_of(String)
+      end
     end
   end
 end

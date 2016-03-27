@@ -5,7 +5,9 @@ RSpec.describe AppleStore::RankedApp do
 
   describe '#metadata' do
     it 'returns a hash' do
-      response = subject.metadata
+      response = VCR.use_cassette('apps') do
+        subject.metadata
+      end
       expect(response).to be_kind_of(Hash)
     end
   end

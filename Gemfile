@@ -12,7 +12,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'responders', '~> 2.0'
-gem 'dalli'
+gem 'dalli', '2.7.6'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -46,5 +46,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.2'
+  gem 'vcr', '~> 3.0'
+  gem 'webmock', '~> 1.19'
 end

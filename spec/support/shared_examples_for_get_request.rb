@@ -39,7 +39,7 @@ RSpec.shared_examples "a get request" do
     end
 
     it 'responds successfully with an HTTP 200 status code' do
-      get :index, good_params
+      VCR.use_cassette('apps') { get :index, good_params }
       expect(response).to be_success
       expect(response).to have_http_status(200)
     end
