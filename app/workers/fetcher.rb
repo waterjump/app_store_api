@@ -5,7 +5,7 @@ class Fetcher
     report = AppleStore::PublisherReport.new(
         'category_id' => category_id,
         'monetization' => monetization)
-      report.perform
+    report.perform
     Rails.logger.info "Fetcher ran report for category_id: #{category_id}, monetization: #{monetization}"
   end
 end

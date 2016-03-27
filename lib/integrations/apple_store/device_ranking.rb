@@ -6,8 +6,8 @@ class AppleStore::DeviceRanking
   end
 
   def ranking
-    json = JSON.parse(@data).with_indifferent_access
     begin
+      json = JSON.parse(@data).with_indifferent_access
       list = case @monetization.downcase
         when 'paid'
           json[:topCharts][0][:adamIds]
