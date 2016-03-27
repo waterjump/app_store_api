@@ -13,6 +13,10 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'responders', '~> 2.0'
 gem 'dalli', '2.7.6'
+gem 'sidekiq'
+gem 'sidetiq'
+gem 'redis'
+gem 'unicorn'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
