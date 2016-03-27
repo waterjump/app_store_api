@@ -70,7 +70,11 @@ class AppleStore::Report
   end
 
   def cache_key(options = {})
-    "top-apps-#{@params.except(:rank).merge(options).compact.sort.flatten.join('_')}"
+    "top-apps-#{cache_params.merge(options).compact.sort.flatten.join('_')}"
+  end
+
+  def cache_params
+    @params.slice(:category_id, :monetization)
   end
 
   def combine_ranking
