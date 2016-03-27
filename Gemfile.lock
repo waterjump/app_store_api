@@ -72,6 +72,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    memcachier (0.0.2)
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
@@ -175,6 +176,7 @@ DEPENDENCIES
   dalli (= 2.7.6)
   jbuilder (~> 2.0)
   jquery-rails
+  memcachier
   rails (= 4.2.5.1)
   responders (~> 2.0)
   rspec-rails (~> 3.2)
