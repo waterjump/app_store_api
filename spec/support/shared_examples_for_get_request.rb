@@ -22,6 +22,14 @@ RSpec.shared_examples "a get request" do
       }
     end
 
+    let!(:invalid_cat_params_2) do
+      {
+        format: :json,
+        category_id: 1987,
+        monetization: 'paid'
+      }
+    end
+
     let!(:invalid_mon_params) do
       {
         format: :json,
@@ -43,6 +51,11 @@ RSpec.shared_examples "a get request" do
 
     it 'requires a numeric category_id' do
       get :index, invalid_cat_params
+      expect(response).to have_http_status(400)
+    end
+
+    it 'rejects non app store category_ids' do
+      get :index, invalid_cat_params_2
       expect(response).to have_http_status(400)
     end
 

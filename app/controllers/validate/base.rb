@@ -4,7 +4,8 @@ module Validate
 
     attr_accessor :category_id, :monetization, :rank
 
-    validates :category_id, presence: true, numericality: true
+    validates :category_id, presence: true, category_id_format: true,
+      numericality: { only_integer: true }
     validates :monetization, presence: true,  monetization_format: true
     validates :rank, numericality: {
       only_integer: true,
