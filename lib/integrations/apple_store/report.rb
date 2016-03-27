@@ -7,39 +7,31 @@ class AppleStore::Report
 
   def initialize(params)
     @params = params.with_indifferent_access
+    @rankings = []
+    @results = []
+    @max_length = params[:max_length] || 200
   end
 
   def perform
-    device_rankings = []
+    fetch_rankings
+    combined_ranking = combine_ranking
+    averaged_rankings = averaged_rankings(combined_ranking)
+    build_results(averaged_rankings)
+    format_results
+  end
 
-    device_codes.values.each do |code|
-      data = Rails.cache.fetch("top_apps-#{cache_key('device' => code)}", expires_in: 24.hours) do
+  private
+
+  def fetch_rankings
+    device_codes.each do |code|
+      data = Rails.cache.fetch(cache_key('device' => code), expires_in: 24.hours) do
                api_call_params = api_call_params(device: code)
                gateway.perform_api_call(api_call_params)
              end
       device_ranking = AppleStore::DeviceRanking.new(data, @params[:monetization])
-      device_rankings << device_ranking.ranking
-    end
-
-    combined_ranking = combined_ranking(device_rankings)
-
-    averaged_ranks = averaged_ranks(combined_ranking)
-
-    items = []
-    averaged_ranks.each_with_index do |adam_id, index|
-      data = AppleStore::RankedApp.new(adam_id.first).metadata
-      items << data if data.present?
-      break if items.count == 200
-    end
-
-    if @params[:rank].present?
-      items[@params[:rank].to_i - 1].to_json
-    else
-      items.to_json
+      @rankings << device_ranking.ranking
     end
   end
-
-  private
 
   def api_call_params(options ={})
     {
@@ -72,16 +64,19 @@ class AppleStore::Report
   end
 
   def device_codes
-    { iphone: 30, ipad: 47 }
+    [
+      30, #iPhone
+      47  #iPad
+    ]
   end
 
   def cache_key(options = {})
-    @params.merge(options).compact.sort.flatten.join('_')
+    "top-apps-#{@params.merge(options).compact.sort.flatten.join('_')}"
   end
 
-  def combined_ranking(device_rankings)
+  def combine_ranking
     combined_ranking = {}
-    device_rankings.each do |ranking|
+    @rankings.each do |ranking|
       ranking.each do |adam_id, rank|
         if combined_ranking[adam_id].present?
           combined_ranking[adam_id] << rank
@@ -93,16 +88,32 @@ class AppleStore::Report
     combined_ranking
   end
 
-  def averaged_ranks(combined_ranking)
-    averaged_ranks = {}
+  def averaged_rankings(combined_ranking)
+    averaged_rankings = {}
     combined_ranking.each do |adam_id, ranks|
-      averaged_ranks.merge!(
+      averaged_rankings.merge!(
         adam_id => (ranks.reduce(:+).to_f / ranks.size)
       )
     end
 
-    averaged_ranks
+    averaged_rankings
       .sort_by { |adam_id, rank| rank }
       .to_h
+  end
+
+  def build_results(averaged_rankings)
+    averaged_rankings.each_with_index do |adam_id, index|
+      data = AppleStore::RankedApp.new(adam_id.first).metadata
+      @results << data if data.present?
+      break if @results.count == @max_length
+    end
+  end
+
+  def format_results
+    if @params[:rank].present?
+      @results[@params[:rank].to_i - 1].to_json
+    else
+      @results.to_json
+    end
   end
 end

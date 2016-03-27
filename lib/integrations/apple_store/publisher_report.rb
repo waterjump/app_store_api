@@ -10,7 +10,8 @@ module AppleStore
     def perform
       apps_report = Report.new(
                       category_id: @category_id,
-                      monetization: @monetization
+                      monetization: @monetization,
+                      max_length: 500
                     ).perform
 
       aggregate_publishers(JSON.parse(apps_report))
@@ -23,7 +24,7 @@ module AppleStore
     private
 
     def aggregate_publishers(apps_report)
-        apps_report.each do |app|
+      apps_report.each do |app|
         id = app['publisher_id']
         if @results[id].present?
           @results[id][:number_of_apps] += 1
