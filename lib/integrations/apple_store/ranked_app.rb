@@ -39,7 +39,8 @@ class AppleStore::RankedApp
       name:                 app[:trackName],
       description:          app[:description],
       small_icon_url:       app[:artworkUrl60],
-      publisher_name:       app[:sellerName],
+      publisher_id:         app[:artistId],
+      publisher_name:       app[:artistName],
       price:                app[:price],
       version:              app[:version],
       average_user_rating:  app[:averageUserRating]

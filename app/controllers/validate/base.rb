@@ -10,7 +10,7 @@ module Validate
       only_integer: true,
       greater_than_or_equal_to: 1,
       less_than_or_equal_to: 200
-    }, allow_nil: true
+    }, allow_nil: true, allow_blank: true
 
     def initialize(params = {})
       @category_id = params[:category_id]

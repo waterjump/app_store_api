@@ -76,7 +76,7 @@ class AppleStore::Report
   end
 
   def cache_key(options = {})
-    @params.merge(options).sort.flatten.join('_')
+    @params.merge(options).compact.sort.flatten.join('_')
   end
 
   def combined_ranking(device_rankings)
@@ -101,7 +101,8 @@ class AppleStore::Report
       )
     end
 
-    averaged_ranks.sort_by { |adam_id, rank| rank }
+    averaged_ranks
+      .sort_by { |adam_id, rank| rank }
       .to_h
   end
 end
