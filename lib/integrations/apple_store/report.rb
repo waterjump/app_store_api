@@ -103,12 +103,11 @@ module AppleStore
       end
 
       averaged_rankings = averaged_rankings.sort_by { |_adam_id, rank| rank }
-      averaged_rankings =
-        if @params[:rank].present? && averaged_rankings.size >= @params[:rank].to_i
-          [averaged_rankings[(@params[:rank].to_i - 1)]]
-        else
-          []
-        end
+
+      if @params[:rank].present?
+        averaged_rankings = select_ranked_app(averaged_rankings)
+      end
+
       averaged_rankings.to_h
     end
 
@@ -120,6 +119,11 @@ module AppleStore
       end
 
       @results.to_json
+    end
+
+    def select_ranked_app(averaged_rankings)
+      return [] unless averaged_rankings.size >= @params[:rank].to_i
+      [averaged_rankings[(@params[:rank].to_i - 1)]]
     end
   end
 end
