@@ -3,14 +3,14 @@
 A REST API used to retrieve reports on top Apple app store apps and publishers.
 
 ==Capabilities:
-* Get a list of top apps for specified genre and monetization:
-* Get information on a single app for specified genre, monetization, and rank
-* Get a list of top publishers for specified genre and monetization
+* Get a list of top apps for specified genre and monetization.
+* Get information on a single app for specified genre, monetization, and rank.
+* Get a list of top publishers for specified genre and monetization.
 
 ==Usage
 === Top apps
 Example URI:
- https://mighty-shore-51202.herokuapp.com/api/apps?category_id=6008&monetization=free
+ GET https://mighty-shore-51202.herokuapp.com/api/apps?category_id=6008&monetization=free
 Example Response:
  [
      {
@@ -29,7 +29,7 @@ Example Response:
 
 === App by rank
 Example URI:
- https://mighty-shore-51202.herokuapp.com/api/apps?category_id=6008&monetization=free&rank=5
+ GET https://mighty-shore-51202.herokuapp.com/api/apps?category_id=6008&monetization=free&rank=5
 Example Response:
  [
      {
@@ -47,7 +47,7 @@ Example Response:
 
 === Top publishers
 Example URI:
- https://mighty-shore-51202.herokuapp.com/api/publishers?category_id=6008&monetization=free
+ GET https://mighty-shore-51202.herokuapp.com/api/publishers?category_id=6008&monetization=free
 Example Response:
  [
      {
@@ -55,7 +55,14 @@ Example Response:
          "publisher_name":"Adobe",
          "number_of_apps":6,
          "app_names":
-             ["Adobe Photoshop Express","Adobe Photoshop Mix - Cut out, combine, blend images","Adobe Photoshop Lightroom for iPad -  Capture, Edit, Organize \u0026 Share Pictures","Adobe Photoshop Fix— Retouch, refine, and enhance photos","Adobe Photoshop Lightroom for iPhone - Capture, Edit, Organize \u0026 Share Pictures","Adobe Premiere Clip - Create, edit \u0026 share videos"],
+             [
+                 "Adobe Photoshop Express",
+                 "Adobe Photoshop Mix - Cut out, combine, blend images",
+                 "Adobe Photoshop Lightroom for iPad -  Capture, Edit, Organize \u0026 Share Pictures",
+                 "Adobe Photoshop Fix— Retouch, refine, and enhance photos",
+                 "Adobe Photoshop Lightroom for iPhone - Capture, Edit, Organize \u0026 Share Pictures",
+                 "Adobe Premiere Clip - Create, edit \u0026 share videos"
+             ],
          "rank":1
      },
      {
@@ -63,14 +70,20 @@ Example Response:
          "publisher_name":"KITE GAMES STUDIO",
          "number_of_apps":5,
          "app_names":
-             ["Color Pop Effects ™ - Black \u0026 White Splash Photo Editing App For Instagram","Add Music To Videos - Merge Background Audio,Sound \u0026 Song For Instagram","Background Eraser Remover - Superimpose Transparent Photo Editor","Animal Face Animation - Funny Movie Maker With Blend,Morph \u0026 Transform Effect","Eye Color Changer Effect - Red Eye Remover Editor"],
+             [
+                 "Color Pop Effects ™ - Black \u0026 White Splash Photo Editing App For Instagram",
+                 "Add Music To Videos - Merge Background Audio,Sound \u0026 Song For Instagram",
+                 "Background Eraser Remover - Superimpose Transparent Photo Editor",
+                 "Animal Face Animation - Funny Movie Maker With Blend,Morph \u0026 Transform Effect",
+                 "Eye Color Changer Effect - Red Eye Remover Editor"
+             ],
          "rank":2
      },
      ...
  ]
 
 === Notes:
-* A list of valid genre codes (category_id) [can be found here](https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/)
+* A list of valid genre codes (category_id) can be found here: https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/
 * Valid monetization values are: 'free', 'paid', 'grossing'.
 * Rank may not excede 200.
 
