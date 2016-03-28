@@ -1,6 +1,5 @@
 module AppleStore
   class PublisherReport
-
     def initialize(params)
       @category_id = params['category_id']
       @monetization = params['monetization']
@@ -9,10 +8,10 @@ module AppleStore
 
     def perform
       apps_report = Report.new(
-                      category_id: @category_id,
-                      monetization: @monetization,
-                      max_length: 500
-                    ).perform
+        category_id: @category_id,
+        monetization: @monetization,
+        max_length: 500
+      ).perform
 
       aggregate_publishers(JSON.parse(apps_report))
 
@@ -44,15 +43,15 @@ module AppleStore
 
     def sort_results
       @results = @results
-        .sort_by { |k, v| v[:number_of_apps] }
-        .reverse
+                 .sort_by { |_k, v| v[:number_of_apps] }
+                 .reverse
     end
 
     def format_results
       index = 1
       results = []
-      @results.each do |id, publisher|
-        publisher.merge!(rank: index)
+      @results.each do |_id, publisher|
+        publisher[:rank] = index
         results << publisher
         index += 1
       end

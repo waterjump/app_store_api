@@ -18,7 +18,7 @@ class CategoryIdFormatValidator < ActiveModel::EachValidator
     [
       [6000, 6022],
       [7001, 7019],
-      [13001, 13030]
+      [13_001, 13_030]
     ]
   end
 end

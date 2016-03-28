@@ -1,4 +1,4 @@
-RSpec.shared_examples "a get request" do
+RSpec.shared_examples 'a get request' do
   describe 'GET #index' do
     let!(:good_params) do
       {

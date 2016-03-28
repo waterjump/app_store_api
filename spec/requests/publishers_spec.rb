@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::PublishersController, type: :controller do
-  it_behaves_like "a get request"
+  it_behaves_like 'a get request'
 
   describe 'GET #index' do
     let!(:good_params) do
@@ -31,9 +31,9 @@ RSpec.describe Api::PublishersController, type: :controller do
       expect(parsed_body.first['number_of_apps'].present?).to be true
       expect(parsed_body.first['app_names'].present?).to be true
       expect(parsed_body.first['app_names']).to be_kind_of(Array)
-      first_entry = parsed_body[0]
-      later_entry = parsed_body[15]
-      expect(first_entry['number_of_apps']).to be > later_entry['number_of_apps']
+      entry_one = parsed_body[0]
+      entry_fftn = parsed_body[15]
+      expect(entry_one['number_of_apps']).to be > entry_fftn['number_of_apps']
     end
   end
 end

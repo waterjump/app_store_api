@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe AppleStore::DeviceRanking do
   describe '#ranking' do
 
-    ranking_data = File.read("#{Rails.root}/spec/fixtures/apple_store/ranking.json")
+    ranking_data =
+      File.read("#{Rails.root}/spec/fixtures/apple_store/ranking.json")
 
     let!(:device_ranking) do
       AppleStore::DeviceRanking.new(ranking_data, 'Free')

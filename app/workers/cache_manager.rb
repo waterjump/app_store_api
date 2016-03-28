@@ -5,7 +5,7 @@ class CacheManager
   recurrence { daily }
 
   def perform
-    Rails.logger.info "CacheManager kicking off."
+    Rails.logger.info 'CacheManager kicking off.'
     category_ranges.each do |range|
       if range.is_a?(Range)
         range.each do |cat_id|
@@ -24,16 +24,12 @@ class CacheManager
       36,
       6000..6022,
       7001..7019,
-      13001..13030
+      13_001..13_030
     ]
   end
 
   def monetizations
-    [
-      'free',
-      'paid',
-      'grossing'
-    ]
+    %w(free paid grossing)
   end
 
   def run_report(cat)

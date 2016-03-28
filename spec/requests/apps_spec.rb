@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::AppsController, type: :controller do
-  it_behaves_like "a get request"
+  it_behaves_like 'a get request'
   describe 'GET #index' do
     let!(:good_params) do
       {
