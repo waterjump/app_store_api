@@ -14,7 +14,7 @@ Example URI:
 Example Response:
  [
      {
-       "id":"447188370",
+         "id":"447188370",
          "name":"Snapchat",
          "description":"Life's more fun when you live in the moment :) Happy Snapping!\n\n* * *\n\nPlease note: Snapchatters can always capture or save your messages, such as by taking a screenshot or using a camera. Be mindful of what you Snap!",
          "small_icon_url":"http://is3.mzstatic.com/image/thumb/Purple49/v4/69/94/c7/6994c742-f854-dd94-e60d-1e351732ec58/source/60x60bb.jpg",
