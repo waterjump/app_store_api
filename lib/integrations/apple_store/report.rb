@@ -103,10 +103,12 @@ module AppleStore
       end
 
       averaged_rankings = averaged_rankings.sort_by { |_adam_id, rank| rank }
-      if @params[:rank].present?
-        # TODO: protect from IndexNotFound
-        averaged_rankings = [averaged_rankings[(@params[:rank].to_i - 1)]]
-      end
+      averaged_rankings =
+        if @params[:rank].present? && averaged_rankings.size >= @params[:rank].to_i
+          [averaged_rankings[(@params[:rank].to_i - 1)]]
+        else
+          []
+        end
       averaged_rankings.to_h
     end
 
