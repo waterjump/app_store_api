@@ -1,88 +1,77 @@
-# App Store Api
+= App Store Api
 
-A REST API used to retrieve reports on top Apple app store apps and publishers
+A REST API used to retrieve reports on top Apple app store apps and publishers.
 
-Capabilities:
+==Capabilities:
+* Get a list of top apps for specified genre and monetization:
+* Get information on a single app for specified genre, monetization, and rank
+* Get a list of top publishers for specified genre and monetization
 
- * Get a list of top apps for specified genre and monetization:
- * Get information on a single app for specified genre, monetization, and rank
- * Get a list of top publishers for specified genre and monetization
-
-### Top apps
+==Usage
+=== Top apps
 Example URI:
-```
-https://mighty-shore-51202.herokuapp.com/api/apps?category_id=6008&monetization=free
-```
+ https://mighty-shore-51202.herokuapp.com/api/apps?category_id=6008&monetization=free
 Example Response:
-```
-[
-    {
-      "id":"447188370",
-        "name":"Snapchat",
-        "description":"Life's more fun when you live in the moment :) Happy Snapping!\n\n* * *\n\nPlease note: Snapchatters can always capture or save your messages, such as by taking a screenshot or using a camera. Be mindful of what you Snap!",
-        "small_icon_url":"http://is3.mzstatic.com/image/thumb/Purple49/v4/69/94/c7/6994c742-f854-dd94-e60d-1e351732ec58/source/60x60bb.jpg",
-        "publisher_id":446889612,
-        "publisher_name":"Snapchat, Inc.",
-        "price":0.0,
-        "version":"9.26.0.0",
-        "average_user_rating":2.5
-    },
-    ...
-]
-```
-## Usage
-### App by rank
-Example URI:
-```
-https://mighty-shore-51202.herokuapp.com/api/apps?category_id=6008&monetization=free&rank=5
-```
-Example Response:
-```
-[
-    {
-        "id":"1065249424",
-        "name":"MSQRD — Live Filters \u0026 Face Swap for Video Selfies",
-        "description":"Top #1 app in a dozen countries! Thank you!\n\nRecord video selfie animations, change the way you look and send it to friends via your favorite messengers and social networks.",
-        "small_icon_url":"http://is3.mzstatic.com/image/thumb/Purple49/v4/44/b8/e5/44b8e501-a9ad-37f8-a772-1b776ebf78aa/source/60x60bb.jpg",
-        "publisher_id":1082640171,
-        "publisher_name":"Masquerade Technologies, Inc",
-        "price":0.0,
-        "version":"1.0.6",
-        "average_user_rating":4.5
-    }
-]
-```
+ [
+     {
+       "id":"447188370",
+         "name":"Snapchat",
+         "description":"Life's more fun when you live in the moment :) Happy Snapping!\n\n* * *\n\nPlease note: Snapchatters can always capture or save your messages, such as by taking a screenshot or using a camera. Be mindful of what you Snap!",
+         "small_icon_url":"http://is3.mzstatic.com/image/thumb/Purple49/v4/69/94/c7/6994c742-f854-dd94-e60d-1e351732ec58/source/60x60bb.jpg",
+         "publisher_id":446889612,
+         "publisher_name":"Snapchat, Inc.",
+         "price":0.0,
+         "version":"9.26.0.0",
+         "average_user_rating":2.5
+     },
+     ...
+ ]
 
-### Top publishers
+=== App by rank
 Example URI:
-```
-https://mighty-shore-51202.herokuapp.com/api/publishers?category_id=6008&monetization=free
-```
+ https://mighty-shore-51202.herokuapp.com/api/apps?category_id=6008&monetization=free&rank=5
 Example Response:
-```
-[
-    {
-        "publisher_id":331646274,
-        "publisher_name":"Adobe",
-        "number_of_apps":6,
-        "app_names":
-            ["Adobe Photoshop Express","Adobe Photoshop Mix - Cut out, combine, blend images","Adobe Photoshop Lightroom for iPad -  Capture, Edit, Organize \u0026 Share Pictures","Adobe Photoshop Fix— Retouch, refine, and enhance photos","Adobe Photoshop Lightroom for iPhone - Capture, Edit, Organize \u0026 Share Pictures","Adobe Premiere Clip - Create, edit \u0026 share videos"],
-        "rank":1
-    },
-    {
-        "publisher_id":966849088,
-        "publisher_name":"KITE GAMES STUDIO",
-        "number_of_apps":5,
-        "app_names":
-            ["Color Pop Effects ™ - Black \u0026 White Splash Photo Editing App For Instagram","Add Music To Videos - Merge Background Audio,Sound \u0026 Song For Instagram","Background Eraser Remover - Superimpose Transparent Photo Editor","Animal Face Animation - Funny Movie Maker With Blend,Morph \u0026 Transform Effect","Eye Color Changer Effect - Red Eye Remover Editor"],
-        "rank":2
-    },
-    ...
-]
-```
-### Notes:
- * A list of valid genre codes (category_id) [can be found here](https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/)
- * Valid monetization values are: 'free', 'paid', 'grossing'.
- * Rank may not excede 200.
+ [
+     {
+         "id":"1065249424",
+         "name":"MSQRD — Live Filters \u0026 Face Swap for Video Selfies",
+         "description":"Top #1 app in a dozen countries! Thank you!\n\nRecord video selfie animations, change the way you look and send it to friends via your favorite messengers and social networks.",
+         "small_icon_url":"http://is3.mzstatic.com/image/thumb/Purple49/v4/44/b8/e5/44b8e501-a9ad-37f8-a772-1b776ebf78aa/source/60x60bb.jpg",
+         "publisher_id":1082640171,
+         "publisher_name":"Masquerade Technologies, Inc",
+         "price":0.0,
+         "version":"1.0.6",
+         "average_user_rating":4.5
+     }
+ ]
+
+=== Top publishers
+Example URI:
+ https://mighty-shore-51202.herokuapp.com/api/publishers?category_id=6008&monetization=free
+Example Response:
+ [
+     {
+         "publisher_id":331646274,
+         "publisher_name":"Adobe",
+         "number_of_apps":6,
+         "app_names":
+             ["Adobe Photoshop Express","Adobe Photoshop Mix - Cut out, combine, blend images","Adobe Photoshop Lightroom for iPad -  Capture, Edit, Organize \u0026 Share Pictures","Adobe Photoshop Fix— Retouch, refine, and enhance photos","Adobe Photoshop Lightroom for iPhone - Capture, Edit, Organize \u0026 Share Pictures","Adobe Premiere Clip - Create, edit \u0026 share videos"],
+         "rank":1
+     },
+     {
+         "publisher_id":966849088,
+         "publisher_name":"KITE GAMES STUDIO",
+         "number_of_apps":5,
+         "app_names":
+             ["Color Pop Effects ™ - Black \u0026 White Splash Photo Editing App For Instagram","Add Music To Videos - Merge Background Audio,Sound \u0026 Song For Instagram","Background Eraser Remover - Superimpose Transparent Photo Editor","Animal Face Animation - Funny Movie Maker With Blend,Morph \u0026 Transform Effect","Eye Color Changer Effect - Red Eye Remover Editor"],
+         "rank":2
+     },
+     ...
+ ]
+
+=== Notes:
+* A list of valid genre codes (category_id) [can be found here](https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/)
+* Valid monetization values are: 'free', 'paid', 'grossing'.
+* Rank may not excede 200.
 
 :alien:
